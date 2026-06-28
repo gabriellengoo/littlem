@@ -34,6 +34,20 @@
       <svg class="float-shape float-squiggle-two" viewBox="0 0 180 80">
         <path d="M18 42 C44 66 68 66 92 42 S136 18 162 44" />
       </svg>
+
+      <svg class="float-shape float-rainbow-three" viewBox="0 0 240 160">
+        <path d="M36 126 C54 48 116 18 168 46 C210 68 222 104 216 140" />
+        <path d="M68 132 C82 78 122 56 160 72 C190 84 200 112 194 142" />
+        <path d="M100 136 C110 108 132 98 154 106 C172 114 178 128 174 146" />
+      </svg>
+
+      <svg class="float-shape float-blob-three" viewBox="0 0 260 230">
+        <path d="M52 32 C92 -6 146 18 176 38 C220 66 248 112 224 158 C198 208 126 224 72 198 C24 174 6 108 24 70 C30 56 40 44 52 32 Z" />
+      </svg>
+
+      <svg class="float-shape float-squiggle-three" viewBox="0 0 180 80">
+        <path d="M16 46 C42 18 64 18 90 46 S138 74 164 44" />
+      </svg>
     </div>
 
     <header class="site-header" :class="{ 'is-scrolled': hasScrolledPastHero }" aria-label="Primary navigation">
@@ -55,13 +69,11 @@
 
     <section id="top" class="video-hero" aria-label="Little Manna hero video">
       <video :src="googleDriveVideoSourceUrl" autoplay muted loop playsinline preload="auto"></video>
-      <div class="wave-bridge" aria-hidden="true">
-        <svg viewBox="0 0 1440 180" preserveAspectRatio="none">
-          <path class="wave-fill wave-fill-back" d="M0 82 C120 36 226 42 338 86 C474 139 560 24 706 76 C855 129 922 47 1064 74 C1212 102 1292 112 1440 56 L1440 180 L0 180 Z" />
-          <path class="wave-fill wave-fill-front" d="M0 98 C130 42 236 66 350 102 C486 145 566 38 718 90 C854 137 944 34 1082 88 C1236 148 1322 72 1440 94 L1440 180 L0 180 Z" />
-        </svg>
-      </div>
     </section>
+
+    <a class="back-to-top" :class="{ 'is-visible': hasScrolledPastHero }" href="#top" aria-label="Back to top">
+      ↑
+    </a>
 
     <section id="intro" class="hero section-shell">
       <p class="eyebrow">Personal in-home meal prep for little ones 11 months+</p>
