@@ -313,7 +313,7 @@ export default {
           price: '£300 + groceries',
           time: '4–5 hours',
           featured: true,
-          items: ['12–18 portions', '3–5 meal types', '1–2 breakfast/snack options', 'Labels + storage notes', 'Light kitchen clean-down']
+          items: ['12–18 portions', '3–5 meal types (frozen food etc)', '1–2 breakfast/snack options (smoothies/juices)', 'Labels + storage notes', 'Light kitchen clean-down']
         },
         {
           name: 'Family Prep Day',
