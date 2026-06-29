@@ -131,7 +131,15 @@
       <p class="section-note">Groceries are not included. Parents can order ingredients directly or I can create a suggested shopping list.</p>
     </section>
 
-    <section id="meals" class="section-shell">
+    <section id="meals" class="section-shell meal-section">
+      <div class="meal-blob-images" aria-hidden="true">
+        <figure class="meal-blob meal-blob-left">
+          <img src="/images/food1.png" alt="">
+        </figure>
+        <figure class="meal-blob meal-blob-right">
+          <img src="/images/food3.png" alt="">
+        </figure>
+      </div>
       <p class="eyebrow">Example meals</p>
       <h2>Simple meals for tiny hands and little mouths.</h2>
       <ul class="meal-list">
