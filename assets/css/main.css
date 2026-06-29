@@ -124,7 +124,7 @@ select {
 .floating-shapes {
   position: absolute;
   inset: 0;
-  z-index: 0;
+  z-index: 3;
   overflow: hidden;
   pointer-events: none;
 }
@@ -148,7 +148,7 @@ select {
 }
 
 .float-rainbow-one .cloud {
-  fill: var(--cream);
+  fill: none;
   stroke: var(--carrot);
 }
 
@@ -177,13 +177,13 @@ select {
 
 .float-rainbow-one {
   right: -58px;
-  top: 118vh;
+  top: 16vh;
   width: clamp(168px, 25vw, 322px);
   animation: floatSlow 16s ease-in-out infinite;
 }
 
 .float-rainbow-two {
-  left: -48px;
+  right: -48px;
   top: 258vh;
   width: clamp(185px, 28vw, 364px);
   stroke: rgba(242, 140, 82, 0.72);
@@ -192,7 +192,7 @@ select {
 
 .float-blob-one {
   right: -126px;
-  top: 185vh;
+  top: 58vh;
   width: clamp(266px, 39vw, 504px);
   animation: floatBlob 20s ease-in-out infinite;
 }
@@ -206,7 +206,7 @@ select {
 
 .float-squiggle-one {
   left: 8vw;
-  top: 148vh;
+  top: 72vh;
   width: clamp(112px, 17vw, 224px);
   animation: floatSlowAlt 13s ease-in-out infinite;
 }
@@ -250,11 +250,11 @@ select {
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  width: 95vw;
+  width: 100vw;
   min-height: 54px;
   margin: 0;
   padding: 8px 16px;
-  background: rgba(255, 253, 248, 0.92);
+  /* background: rgb(255, 253, 248); */
   border: 0;
   transform: translateX(-50%);
 }
@@ -332,9 +332,10 @@ select {
 
 .video-hero {
   position: relative;
-  z-index: 2;
+  z-index: 1;
   display: grid;
   min-height: 100svh;
+  padding: 96px 20px 42px;
   overflow: hidden;
   place-items: center;
   background: var(--ink);
@@ -357,6 +358,54 @@ select {
   padding-top: 78px;
   text-align: center;
   border-bottom: 0;
+}
+
+.hero-overlay {
+  position: relative;
+  z-index: 4;
+  width: min(780px, 100%);
+  padding: 0;
+  color: var(--ink);
+}
+
+.hero-overlay .eyebrow {
+  margin-bottom: 10px;
+  color: var(--carrot);
+  font-size: clamp(0.68rem, 1.1vw, 0.76rem);
+}
+
+.hero-overlay h1 {
+  max-width: 680px;
+  margin: 12px auto 14px;
+  font-size: clamp(1.9rem, 4.8vw, 3.85rem);
+  line-height: 0.96;
+}
+
+.hero-overlay .hero-subtext {
+  max-width: 620px;
+  color: var(--ink);
+  font-size: clamp(0.9rem, 1.35vw, 1rem);
+  line-height: 1.5;
+}
+
+.hero-overlay .button-row {
+  margin: 22px 0 10px;
+}
+
+.hero-overlay .button {
+  min-height: 42px;
+  padding: 10px 16px;
+  font-size: 0.9rem;
+}
+
+.hero-overlay .button-secondary {
+  background: rgba(255, 253, 248, 0.72);
+}
+
+.hero-overlay .founding-note {
+  margin-bottom: 0;
+  color: var(--ink);
+  font-size: 0.9rem;
 }
 
 @keyframes loaderLogoFloat {
@@ -410,6 +459,18 @@ select {
 
   50% {
     transform: translate3d(24px, -22px, 0) rotate(3deg) scale(1.03);
+  }
+}
+
+@keyframes menuLinkIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -790,12 +851,12 @@ select {
 
 @media (max-width: 720px) {
   .float-shape {
-    opacity: 0.56;
+    opacity: 0.5;
   }
 
   .float-blob-one {
     right: -150px;
-    top: 184vh;
+    top: 58vh;
     width: 260px;
   }
 
@@ -807,19 +868,19 @@ select {
   }
 
   .float-rainbow-one {
-    right: -58px;
-    top: 106vh;
-    width: 208px;
+    right: -150px;
+    top: 17vh;
+    width: 190px;
   }
 
   .float-squiggle-one {
     left: -8px;
-    top: 150vh;
+    top: 74vh;
     width: 150px;
   }
 
   .float-rainbow-two {
-    left: -112px;
+    right: -112px;
     width: 224px;
   }
 
@@ -842,7 +903,7 @@ select {
   }
 
   .site-header {
-    width: 95vw;
+    width: 100vw;
     min-height: 58px;
   }
 
@@ -870,11 +931,11 @@ select {
     display: none;
     flex-direction: column;
     align-items: center;
-    gap: 0;
+    gap: 10px;
     padding: 16px;
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: 10px;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
     color: var(--ink);
     text-shadow: none;
   }
@@ -884,9 +945,56 @@ select {
   }
 
   .nav-links a {
-    width: 100%;
-    padding: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: min(100%, 330px);
+    min-height: 42px;
+    padding: 10px 16px;
+    border: 1px solid var(--ink);
+    border-radius: 999px;
+    color: var(--ink);
+    background: rgba(255, 253, 248, 0.9);
+    font-size: 0.9rem;
+    font-weight: 900;
+    line-height: 1.1;
     text-align: center;
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  .nav-links.is-open a {
+    animation: menuLinkIn 280ms ease forwards;
+  }
+
+  .nav-links.is-open a:nth-child(1) {
+    animation-delay: 30ms;
+  }
+
+  .nav-links.is-open a:nth-child(2) {
+    animation-delay: 90ms;
+  }
+
+  .nav-links.is-open a:nth-child(3) {
+    animation-delay: 150ms;
+  }
+
+  .nav-links.is-open a:nth-child(4) {
+    animation-delay: 210ms;
+  }
+
+  .nav-links.is-open a:nth-child(5) {
+    animation-delay: 270ms;
+  }
+
+  .nav-links.is-open a:nth-child(6) {
+    animation-delay: 330ms;
+  }
+
+  .nav-links a:hover,
+  .nav-links a:focus-visible {
+    color: var(--ink);
+    background: var(--honey);
   }
 
   .section-shell {
@@ -895,9 +1003,45 @@ select {
     text-align: center;
   }
 
+  .video-hero {
+    min-height: 100svh;
+    padding: 94px 21px 34px;
+  }
+
   .hero {
     min-height: auto;
     padding-top: 58px;
+  }
+
+  .hero-overlay {
+    padding-top: 0;
+  }
+
+  .hero-overlay h1 {
+    max-width: 360px;
+    font-size: clamp(1.9rem, 10.5vw, 2.8rem);
+  }
+
+  .hero-overlay .hero-subtext {
+    max-width: 340px;
+    font-size: 0.88rem;
+  }
+
+  .hero-overlay .button-row {
+    gap: 8px;
+    width: min(100%, 330px);
+    margin-top: 18px;
+  }
+
+  .hero-overlay .button {
+    min-height: 40px;
+    padding: 9px 14px;
+    font-size: 0.86rem;
+  }
+
+  .hero-overlay .founding-note {
+    max-width: 300px;
+    font-size: 0.84rem;
   }
 
   h2,

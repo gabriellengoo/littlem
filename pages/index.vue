@@ -69,24 +69,23 @@
 
     <section id="top" class="video-hero" aria-label="Little Manna hero video">
       <video :src="googleDriveVideoSourceUrl" autoplay muted loop playsinline preload="auto"></video>
+      <div id="intro" class="hero hero-overlay">
+        <p class="eyebrow">Personal in-home meal prep for little ones 11 months+</p>
+        <h1>Homemade meals, made around your baby.</h1>
+        <p class="hero-subtext">
+          Little Manna is a personal in-home meal prep service for babies and toddlers 11 months+, cooked in your kitchen and tailored to your child's stage, routine, allergies, likes and dislikes.
+        </p>
+        <div class="button-row">
+          <a class="button button-primary" href="#enquire">Enquire for weekly prep</a>
+          <a class="button button-secondary" href="#how-it-works">See how it works</a>
+        </div>
+        <p class="founding-note">Currently opening limited founding family spaces.</p>
+      </div>
     </section>
 
     <a class="back-to-top" :class="{ 'is-visible': hasScrolledPastHero }" href="#top" aria-label="Back to top">
       ↑
     </a>
-
-    <section id="intro" class="hero section-shell">
-      <p class="eyebrow">Personal in-home meal prep for little ones 11 months+</p>
-      <h1>Homemade meals, made around your baby.</h1>
-      <p class="hero-subtext">
-        Little Manna is a personal in-home meal prep service for babies and toddlers 11 months+, cooked in your kitchen and tailored to your child's stage, routine, allergies, likes and dislikes.
-      </p>
-      <div class="button-row">
-        <a class="button button-primary" href="#enquire">Enquire for weekly prep</a>
-        <a class="button button-secondary" href="#how-it-works">See how it works</a>
-      </div>
-      <p class="founding-note">Currently opening limited founding family spaces.</p>
-    </section>
 
     <section id="different" class="section-shell intro-section">
       <p class="eyebrow">What makes it different</p>
