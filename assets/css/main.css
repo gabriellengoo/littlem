@@ -116,7 +116,7 @@ select {
 }
 
 .loading-screen img {
-  width: min(520px, 76vw);
+  width: min(180px, 42vw);
   height: auto;
   animation: loaderLogoFloat 1300ms ease-in-out infinite alternate;
 }
