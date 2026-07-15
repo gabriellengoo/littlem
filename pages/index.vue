@@ -77,7 +77,7 @@
         </p>
         <div class="button-row">
           <a class="button button-primary" href="#enquire">Enquire for weekly prep</a>
-          <a class="button button-secondary" href="#how-it-works">See how it works</a>
+          <a class="button button-secondary" :href="bookingUrl" target="_blank" rel="noopener noreferrer">Book intro call</a>
         </div>
         <p class="founding-note">Currently opening limited founding family spaces.</p>
       </div>
@@ -198,48 +198,82 @@
       <div>
         <p class="eyebrow">Enquire</p>
         <h2>Tell me about your little one.</h2>
-        <p>Enquire for weekly prep, founding family spaces or the mini recipe book.</p>
+        <p>Start with a short enquiry, then book a free intro call if you are ready to chat.</p>
+        <ol class="flow-list">
+          <li>Parent submits short enquiry form.</li>
+          <li>Parent can book a free 10–15 min intro call.</li>
+          <li>If it feels like a good fit, I send the full Typeform parent intake.</li>
+          <li>After intake is complete, I create the menu and grocery list for approval.</li>
+          <li>Weekly prep is confirmed once the menu and date are agreed.</li>
+        </ol>
       </div>
 
-      <!-- Replace action with your Formspree endpoint, for example: https://formspree.io/f/your-id -->
-      <!-- To use Typeform instead, replace this form with the Typeform embed script/container. -->
-      <form class="enquiry-form" action="https://example.com/formspree-placeholder" method="POST">
-        <label>
-          Name
-          <input type="text" name="name" autocomplete="name" required>
-        </label>
-        <label>
-          Email
-          <input type="email" name="email" autocomplete="email" required>
-        </label>
-        <label>
-          Child's age
-          <input type="text" name="child_age" required>
-        </label>
-        <label>
-          Location
-          <input type="text" name="location" autocomplete="address-level2">
-        </label>
-        <label>
-          Allergies/dietary needs
-          <textarea name="allergies" rows="3"></textarea>
-        </label>
-        <label>
-          Which package are you interested in?
-          <select name="package">
-            <option>Mini Prep</option>
-            <option>Weekly Little Prep</option>
-            <option>Family Prep Day</option>
-            <option>Founding family space</option>
-            <option>Mini recipe book</option>
-          </select>
-        </label>
-        <label class="full-span">
-          Message
-          <textarea name="message" rows="5"></textarea>
-        </label>
-        <button class="button button-primary full-span" type="submit">Send enquiry</button>
-      </form>
+      <div class="enquiry-panel">
+        <form ref="enquiryForm" class="enquiry-form" :action="formspreeEndpoint" method="POST" @submit.prevent="submitEnquiry">
+          <div class="form-field">
+            <label for="parent-name">Parent name</label>
+            <input id="parent-name" type="text" name="parent_name" autocomplete="name" required>
+          </div>
+          <div class="form-field">
+            <label for="parent-email">Email</label>
+            <input id="parent-email" type="email" name="email" autocomplete="email" required>
+          </div>
+          <div class="form-field">
+            <label for="child-age">Child's age</label>
+            <input id="child-age" type="text" name="child_age" required>
+          </div>
+          <div class="form-field">
+            <label for="location-area">Location / area</label>
+            <input id="location-area" type="text" name="location_area" autocomplete="address-level2" required>
+          </div>
+          <div class="form-field full-span">
+            <label for="package-interest">Package interested in</label>
+            <select id="package-interest" name="package_interested_in" required>
+              <option value="">Select a package</option>
+              <option>Mini Prep</option>
+              <option>Weekly Little Prep</option>
+              <option>Family Prep Day</option>
+              <option>Founding family space</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div class="form-field full-span">
+            <label for="short-message">Short message</label>
+            <textarea id="short-message" name="message" rows="5" required></textarea>
+          </div>
+          <p
+            v-if="formStatus === 'success'"
+            id="enquiry-success"
+            class="form-status form-status-success full-span"
+            role="status"
+            tabindex="-1"
+            ref="successMessage"
+          >
+            Thank you for enquiring. I'll review your message and come back to you soon. If you're ready to chat, you can also
+            <a :href="bookingUrl" target="_blank" rel="noopener noreferrer">book a free intro call below</a>.
+          </p>
+          <p v-if="formStatus === 'error'" class="form-status form-status-error full-span" role="alert">
+            {{ formError }}
+          </p>
+          <button class="button button-primary full-span" type="submit" :disabled="formStatus === 'submitting'">
+            {{ formStatus === 'submitting' ? 'Sending...' : 'Send enquiry' }}
+          </button>
+        </form>
+
+        <section class="booking-card" aria-labelledby="booking-title">
+          <p class="eyebrow">Intro call</p>
+          <h3 id="booking-title">Book a free intro call</h3>
+          <p>Before starting weekly prep, we'll have a short 10–15 minute chat about your child's age, eating stage, allergies, routine, likes/dislikes, location and what kind of meal support you need.</p>
+          <a class="button button-secondary" :href="bookingUrl" target="_blank" rel="noopener noreferrer">Book an intro call</a>
+          <p class="small-note">Booking a call does not confirm a paid prep session. Weekly prep is confirmed after the parent intake, menu agreement and date confirmation.</p>
+        </section>
+
+        <section class="intake-card" aria-labelledby="intake-title">
+          <h3 id="intake-title">Full parent intake</h3>
+          <p>The full parent intake form is for after we've spoken or if I've sent it to you directly. It covers your child's age, eating stage, allergies, routine, likes/dislikes and parent preferences.</p>
+          <a :href="typeformIntakeUrl" target="_blank" rel="noopener noreferrer">Open parent intake form</a>
+        </section>
+      </div>
     </section>
 
     <footer class="site-footer">
@@ -248,9 +282,10 @@
       </a>
       <p>Homemade meals, made around your baby.</p>
       <nav aria-label="Footer navigation">
-        <a href="https://instagram.com/littlemanna" rel="noopener">Instagram</a>
-        <a href="mailto:hello@littlemanna.co.uk">Email</a>
+        <a :href="instagramUrl" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a :href="emailHref">Email</a>
         <a href="#enquire">Enquire</a>
+        <a :href="bookingUrl" target="_blank" rel="noopener noreferrer">Book a call</a>
         <a href="#recipe-book">Recipe book</a>
       </nav>
     </footer>
@@ -258,12 +293,27 @@
 </template>
 
 <script>
+import {
+  BOOKING_URL,
+  EMAIL_ADDRESS,
+  FORMSPREE_ENDPOINT,
+  INSTAGRAM_URL,
+  TYPEFORM_INTAKE_URL
+} from '~/config/site'
+
 export default {
   data() {
     return {
       isMenuOpen: false,
       isLoading: true,
       hasScrolledPastHero: false,
+      formStatus: 'idle',
+      formError: '',
+      formspreeEndpoint: FORMSPREE_ENDPOINT,
+      bookingUrl: BOOKING_URL,
+      typeformIntakeUrl: TYPEFORM_INTAKE_URL,
+      instagramUrl: INSTAGRAM_URL,
+      emailAddress: EMAIL_ADDRESS,
       googleDriveVideoSourceUrl: '/videos/little-manna-hero.mp4',
       navItems: [
         { label: 'Difference', href: '#different' },
@@ -372,6 +422,11 @@ export default {
       ]
     }
   },
+  computed: {
+    emailHref() {
+      return `mailto:${this.emailAddress}`
+    }
+  },
   mounted() {
     this.handleScroll()
     window.addEventListener('scroll', this.handleScroll, { passive: true })
@@ -385,6 +440,35 @@ export default {
   methods: {
     handleScroll() {
       this.hasScrolledPastHero = window.scrollY > window.innerHeight * 0.72
+    },
+    async submitEnquiry() {
+      this.formStatus = 'submitting'
+      this.formError = ''
+
+      try {
+        const response = await fetch(this.formspreeEndpoint, {
+          method: 'POST',
+          body: new FormData(this.$refs.enquiryForm),
+          headers: {
+            Accept: 'application/json'
+          }
+        })
+
+        if (!response.ok) {
+          throw new Error('Form submission failed')
+        }
+
+        this.formStatus = 'success'
+        this.$refs.enquiryForm.reset()
+        this.$nextTick(() => {
+          if (this.$refs.successMessage) {
+            this.$refs.successMessage.focus()
+          }
+        })
+      } catch (error) {
+        this.formStatus = 'error'
+        this.formError = 'Sorry, the enquiry could not be sent. Please try again or email me directly.'
+      }
     }
   }
 }

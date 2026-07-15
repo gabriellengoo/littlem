@@ -45,24 +45,19 @@ The current video file lives at `static/videos/little-manna-hero.mp4`. To replac
 
 The page uses a native `<video>` element with `autoplay`, `muted`, `loop`, and `playsinline`, with no controls.
 
-## Replace the form URL
+## Update enquiry and booking links
 
-The enquiry form currently uses a placeholder action:
+Key external URLs are managed in `config/site.js`:
 
-```html
-action="https://example.com/formspree-placeholder"
+```js
+export const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xaqrnzja'
+export const BOOKING_URL = 'https://calendly.com/gabriellengoo/30min'
+export const TYPEFORM_INTAKE_URL = 'https://gabriellengoo.typeform.com/to/AunVDaQA'
+export const INSTAGRAM_URL = 'https://instagram.com/littlemanna'
+export const EMAIL_ADDRESS = 'hello@littlemanna.co.uk'
 ```
 
-Replace it with your Formspree endpoint. If you prefer Typeform, replace the form block in the `#enquire` section with your Typeform embed script/container. Comments are included in the code where the embed should go.
-
-## Update Instagram and email
-
-Footer links are near the bottom of [pages/index.vue](pages/index.vue):
-
-- Instagram: `https://instagram.com/littlemanna`
-- Email: `hello@littlemanna.co.uk`
-
-Replace them with the live links when ready.
+Update this file when the booking calendar, Typeform intake, Instagram link, email address, or Formspree endpoint changes.
 
 ## Hero image
 

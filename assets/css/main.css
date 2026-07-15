@@ -8,6 +8,7 @@
   --honey: #f2b95e;
   --peach: #f4a58a;
   --line: rgba(31, 30, 26, 0.12);
+  --header-height: clamp(70px, calc(7vw + 16px), 132px);
 }
 
 * {
@@ -16,6 +17,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height);
 }
 
 body {
@@ -29,7 +31,8 @@ body {
 
 main {
   position: relative;
-  overflow: hidden;
+  padding-top: var(--header-height);
+  overflow-x: hidden;
 }
 
 a {
@@ -244,19 +247,39 @@ select {
 .site-header {
   position: fixed;
   top: 0;
-  left: 50%;
+  left: 0;
   z-index: 20;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  width: 100vw;
-  min-height: 54px;
+  width: 100%;
+  min-height: var(--header-height);
   margin: 0;
   padding: 8px 16px;
-  /* background: rgb(255, 253, 248); */
+  overflow: visible;
+  background: var(--cream);
   border: 0;
-  transform: translateX(-50%);
+  box-shadow: 0 10px 26px rgba(31, 30, 26, 0.12);
+  isolation: isolate;
+}
+
+.site-header::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: url("data:image/svg+xml,%3Csvg width='760' height='96' viewBox='0 0 760 96' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M18 70C78 18 132 18 192 70S318 122 378 70 504 18 564 70 690 122 750 70' stroke='%23A6B28C' stroke-width='10' stroke-linecap='round' opacity='.24'/%3E%3Cpath d='M56 32C94 54 130 54 168 32S244 10 282 32 358 54 396 32' stroke='%23F28C52' stroke-width='8' stroke-linecap='round' opacity='.18'/%3E%3Cpath d='M470 24C510 8 560 10 596 36C632 62 688 66 732 44' stroke='%23F2B95E' stroke-width='12' stroke-linecap='round' opacity='.2'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 760px 96px;
+  content: "";
+  animation: headerShapeDrift 18s linear infinite;
+}
+
+.brand,
+.nav-links,
+.menu-toggle {
+  position: relative;
+  z-index: 1;
 }
 
 .brand {
@@ -334,8 +357,8 @@ select {
   position: relative;
   z-index: 1;
   display: grid;
-  min-height: 100svh;
-  padding: 96px 20px 42px;
+  min-height: calc(100svh - 132px);
+  padding: 42px 20px;
   overflow: hidden;
   place-items: center;
   background: var(--ink);
@@ -474,6 +497,16 @@ select {
   }
 }
 
+@keyframes headerShapeDrift {
+  from {
+    background-position: 0 50%;
+  }
+
+  to {
+    background-position: 760px 50%;
+  }
+}
+
 .eyebrow {
   margin-bottom: 14px;
   color: var(--sage);
@@ -583,7 +616,9 @@ select {
 .minimal-grid article,
 .package-card,
 .faq-list details,
-.enquiry-form {
+.enquiry-form,
+.booking-card,
+.intake-card {
   background: var(--paper);
   border: 1px solid var(--line);
   border-radius: 10px;
@@ -602,7 +637,8 @@ select {
 .faq-list p,
 .about-section p,
 .recipe-section p,
-.enquiry-section p {
+.enquiry-section p,
+.flow-list {
   color: var(--muted);
 }
 
@@ -813,6 +849,19 @@ select {
   gap: 54px;
 }
 
+.flow-list {
+  display: grid;
+  gap: 10px;
+  margin: 24px 0 0;
+  padding-left: 20px;
+  font-weight: 800;
+}
+
+.enquiry-panel {
+  display: grid;
+  gap: 18px;
+}
+
 .enquiry-form {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -820,9 +869,12 @@ select {
   padding: 24px;
 }
 
-.enquiry-form label {
+.form-field {
   display: grid;
   gap: 7px;
+}
+
+.form-field label {
   color: var(--muted);
   font-weight: 900;
 }
@@ -844,6 +896,60 @@ select {
 .enquiry-form select:focus {
   border-color: var(--carrot);
   outline: 3px solid rgba(242, 140, 82, 0.2);
+}
+
+.enquiry-form button:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.form-status {
+  margin: 0;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-weight: 800;
+}
+
+.form-status:focus {
+  outline: 3px solid rgba(242, 140, 82, 0.2);
+}
+
+.form-status a,
+.intake-card a {
+  color: var(--ink);
+  font-weight: 900;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.form-status-success {
+  background: rgba(166, 178, 140, 0.18);
+}
+
+.form-status-error {
+  color: #8d2d1d;
+  background: rgba(244, 165, 138, 0.18);
+  border-color: rgba(141, 45, 29, 0.28);
+}
+
+.booking-card,
+.intake-card {
+  padding: 24px;
+}
+
+.booking-card h3,
+.intake-card h3 {
+  font-size: 1.45rem;
+}
+
+.booking-card .button {
+  margin: 10px 0 18px;
+}
+
+.booking-card .small-note,
+.intake-card p {
+  margin-bottom: 0;
 }
 
 .full-span {
@@ -900,6 +1006,10 @@ select {
 }
 
 @media (max-width: 720px) {
+  :root {
+    --header-height: 66px;
+  }
+
   .float-shape {
     opacity: 0.5;
   }
@@ -953,8 +1063,7 @@ select {
   }
 
   .site-header {
-    width: 100vw;
-    min-height: 58px;
+    min-height: var(--header-height);
   }
 
   .brand img {
@@ -963,9 +1072,6 @@ select {
 
   .menu-toggle {
     display: block;
-    position: fixed;
-    top: 8px;
-    right: 12px;
     z-index: 32;
   }
 
@@ -1073,13 +1179,13 @@ select {
   }
 
   .video-hero {
-    min-height: 100svh;
-    padding: 94px 21px 34px;
+    min-height: calc(100svh - 66px);
+    padding: 34px 21px;
   }
 
   .hero {
     min-height: auto;
-    padding-top: 58px;
+    padding-top: 0;
   }
 
   .hero-overlay {
@@ -1130,6 +1236,11 @@ select {
   .trust-list,
   .enquiry-form {
     grid-template-columns: 1fr;
+  }
+
+  .flow-list {
+    padding-left: 0;
+    list-style-position: inside;
   }
 
   .steps-list article {

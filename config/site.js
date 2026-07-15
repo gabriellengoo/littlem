@@ -1,0 +1,5 @@
+export const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xaqrnzja'
+export const BOOKING_URL = 'https://calendly.com/gabriellengoo/30min'
+export const TYPEFORM_INTAKE_URL = 'https://gabriellengoo.typeform.com/to/AunVDaQA'
+export const INSTAGRAM_URL = 'https://instagram.com/littlemanna'
+export const EMAIL_ADDRESS = 'hello@littlemanna.co.uk'
