@@ -865,6 +865,104 @@ select {
   margin-top: 18px;
 }
 
+.coming-soon-page {
+  min-height: 100svh;
+  padding-top: 0;
+}
+
+.coming-soon-header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 28px 0;
+}
+
+.coming-soon-hero {
+  position: relative;
+  display: grid;
+  align-items: center;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 56px;
+  width: min(1120px, calc(100% - 32px));
+  min-height: calc(100svh - 104px);
+  margin: 0 auto;
+  padding: 34px 0 86px;
+}
+
+.coming-soon-content h1 {
+  max-width: 760px;
+  margin: 18px 0;
+  font-size: clamp(3rem, 8vw, 6.8rem);
+  text-align: left;
+}
+
+.coming-soon-content .hero-subtext {
+  max-width: 620px;
+  margin: 0;
+  color: var(--muted);
+}
+
+.coming-soon-media {
+  position: relative;
+  align-self: stretch;
+  min-height: 420px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--paper);
+  border: 1px solid var(--line);
+}
+
+.coming-soon-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.countdown-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  max-width: 620px;
+  margin-top: 34px;
+}
+
+.countdown-grid article {
+  display: grid;
+  gap: 2px;
+  min-height: 112px;
+  padding: 18px 14px;
+  place-items: center;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.countdown-grid strong {
+  font-family: 'Quicksand', 'Nunito', system-ui, sans-serif;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1;
+}
+
+.countdown-grid span {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.coming-soon-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
 .faq-list {
   display: grid;
   gap: 10px;
@@ -1046,6 +1144,16 @@ select {
   .about-section > img {
     width: 190px;
     justify-self: center;
+  }
+
+  .coming-soon-hero {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+
+  .coming-soon-media {
+    order: 2;
+    min-height: 320px;
   }
 }
 
@@ -1274,6 +1382,52 @@ select {
   .button-row,
   .button {
     width: 100%;
+  }
+
+  .coming-soon-header {
+    width: min(100% - 42px, 1120px);
+    padding: 18px 0;
+  }
+
+  .coming-soon-header .button {
+    width: auto;
+    min-height: 40px;
+    padding: 9px 14px;
+    font-size: 0.86rem;
+  }
+
+  .coming-soon-hero {
+    width: min(100% - 42px, 1120px);
+    min-height: auto;
+    padding: 28px 0 72px;
+    text-align: center;
+  }
+
+  .coming-soon-content h1 {
+    margin-right: auto;
+    margin-left: auto;
+    font-size: clamp(2.2rem, 13vw, 3.6rem);
+    text-align: center;
+  }
+
+  .coming-soon-content .hero-subtext {
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 0.92rem;
+  }
+
+  .countdown-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .countdown-grid article {
+    min-height: 94px;
+    padding: 14px 10px;
+  }
+
+  .coming-soon-actions {
+    justify-content: center;
   }
 
   .minimal-grid,

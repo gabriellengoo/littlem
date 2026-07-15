@@ -193,7 +193,7 @@
       <p class="eyebrow">Recipe book</p>
       <h2>Want a little taste first?</h2>
       <p>Download the Little Manna mini recipe book: simple baby and toddler meal ideas for 11 months+.</p>
-      <a class="button button-primary" href="https://example.com/recipe-book-signup">Get the free recipe book</a>
+      <nuxt-link class="button button-primary" to="/recipe-book-signup">Get the free recipe book</nuxt-link>
     </section>
 
     <section id="faq" class="section-shell">
