@@ -906,20 +906,36 @@ select {
   color: var(--muted);
 }
 
-.coming-soon-media {
-  position: relative;
+.coming-soon-products {
+  display: grid;
   align-self: stretch;
-  min-height: 420px;
-  border-radius: 12px;
-  overflow: hidden;
-  background: var(--paper);
-  border: 1px solid var(--line);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
 }
 
-.coming-soon-media img {
+.coming-soon-products article {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  padding: 12px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.coming-soon-products img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  aspect-ratio: 4 / 5;
+  border-radius: 8px;
+  background: var(--cream);
+  object-fit: contain;
+}
+
+.coming-soon-products h2 {
+  margin: 0;
+  padding: 0 4px 4px;
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  line-height: 1.05;
 }
 
 .countdown-grid {
@@ -1151,9 +1167,8 @@ select {
     gap: 34px;
   }
 
-  .coming-soon-media {
+  .coming-soon-products {
     order: 2;
-    min-height: 320px;
   }
 }
 
@@ -1428,6 +1443,19 @@ select {
 
   .coming-soon-actions {
     justify-content: center;
+  }
+
+  .coming-soon-products {
+    grid-template-columns: 1fr;
+  }
+
+  .coming-soon-products article {
+    padding: 10px;
+    text-align: left;
+  }
+
+  .coming-soon-products img {
+    aspect-ratio: 1 / 1;
   }
 
   .minimal-grid,

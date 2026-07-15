@@ -8,8 +8,15 @@
     </header>
 
     <section class="coming-soon-hero" aria-labelledby="recipe-book-title">
-      <div class="coming-soon-media" aria-hidden="true">
-        <img src="/images/food1.png" alt="">
+      <div class="coming-soon-products" aria-label="Upcoming recipe book previews">
+        <article>
+          <img src="/images/ingredients-colouring-book.png" alt="Ingredients colouring books preview">
+          <h2>Ingredients colouring books</h2>
+        </article>
+        <article>
+          <img src="/images/carry-me-mama-meals.png" alt="Carry me mama meals preview">
+          <h2>Carry me mama meals</h2>
+        </article>
       </div>
 
       <div class="coming-soon-content">
