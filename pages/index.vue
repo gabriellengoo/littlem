@@ -68,7 +68,20 @@
     </header>
 
     <section id="top" class="video-hero" aria-label="Little Manna hero video">
-      <video :src="googleDriveVideoSourceUrl" autoplay muted loop playsinline preload="auto"></video>
+      <img class="hero-video-poster" :src="heroVideoPosterUrl" alt="" aria-hidden="true">
+      <video
+        ref="heroVideo"
+        :class="{ 'is-playing': isHeroVideoPlaying }"
+        :src="googleDriveVideoSourceUrl"
+        :poster="heroVideoPosterUrl"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        @playing="isHeroVideoPlaying = true"
+        @error="isHeroVideoPlaying = false"
+      ></video>
       <div id="intro" class="hero hero-overlay">
         <p class="eyebrow">Personal in-home meal prep for little ones 11 months+</p>
         <h1>Homemade meals, made around your baby.</h1>
@@ -307,6 +320,8 @@ export default {
       isMenuOpen: false,
       isLoading: true,
       hasScrolledPastHero: false,
+      isHeroVideoPlaying: false,
+      heroVideoFallbackTimer: null,
       formStatus: 'idle',
       formError: '',
       formspreeEndpoint: FORMSPREE_ENDPOINT,
@@ -315,6 +330,7 @@ export default {
       instagramUrl: INSTAGRAM_URL,
       emailAddress: EMAIL_ADDRESS,
       googleDriveVideoSourceUrl: '/videos/little-manna-hero.mp4',
+      heroVideoPosterUrl: '/images/little-manna-hero-poster.png',
       navItems: [
         { label: 'Difference', href: '#different' },
         { label: 'How it works', href: '#how-it-works' },
@@ -430,16 +446,35 @@ export default {
   mounted() {
     this.handleScroll()
     window.addEventListener('scroll', this.handleScroll, { passive: true })
+    this.$nextTick(this.ensureHeroVideoPlayback)
     window.setTimeout(() => {
       this.isLoading = false
     }, 900)
   },
   beforeDestroy() {
     window.removeEventListener('scroll', this.handleScroll)
+    window.clearTimeout(this.heroVideoFallbackTimer)
   },
   methods: {
     handleScroll() {
       this.hasScrolledPastHero = window.scrollY > window.innerHeight * 0.72
+    },
+    ensureHeroVideoPlayback() {
+      const video = this.$refs.heroVideo
+
+      if (!video) return
+
+      const playAttempt = video.play()
+
+      if (playAttempt && typeof playAttempt.catch === 'function') {
+        playAttempt.catch(() => {
+          this.isHeroVideoPlaying = false
+        })
+      }
+
+      this.heroVideoFallbackTimer = window.setTimeout(() => {
+        this.isHeroVideoPlaying = !video.paused && !video.ended && video.currentTime > 0
+      }, 1200)
     },
     async submitEnquiry() {
       this.formStatus = 'submitting'
